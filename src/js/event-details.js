@@ -37,3 +37,17 @@ const generateMember = () => {
 for (let i=0; i<3; ++i) {
   document.getElementsByClassName('event-members-list')[0].insertAdjacentHTML("beforeend", generateMember())
 }
+
+const expandTile = (ind) => {
+  let elRef = document.getElementsByClassName('balances')[0].children[ind].children[0].children[1]
+  const isExpanded = elRef.className === 'fas fa-arrow-up';
+  const expandTile = document.getElementsByClassName('balances')[0].children[ind]
+  if (isExpanded) {
+    expandTile.removeChild(expandTile.lastElementChild)
+    elRef.className = 'fas fa-arrow-down';
+  } else {
+    elRef.className = 'fas fa-arrow-up';
+    expandTile.insertAdjacentHTML("beforeend", generateMember())
+  }
+
+}
