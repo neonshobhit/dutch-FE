@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>QrCode Verification</title>
+        <link rel="stylesheet" href="./../css/qrcodeverify.css" />
+    </head>
+
+    <style>
+        
+
+    </style>
+    <body>
+        <div class="container">
+            <div class="qrcode-verify-container">
+                <h3>Your email is: <span id="currentEmailSpan"></span></h3>
+                <h5>Scan the QR code to your authenticator app and enter otp below.</h5>
+                <div class="qrcode-container">
+                    <img id="qrCodeImage" alt="qrcode" width="300" height="250"></img>
+                </div>
+                <form class="secret-key-form-container" id="secretKeyForm">
+                    <div class="form-group">
+                        <label for="secret">Enter Secret key: </label>
+                        <input type="text" class="form-control" id="secret" placeholder="Enter Secret"/>
+                        <div class="error-message hide" id="secretErrorMessage">
+                            <span class="error-text">Secret Doesn't match. please try again.</span>
+                        </div>
+                    </div>
+                    <button type ="submit">Confirm</button>
+                </form> 
+            </div>
+            
+        </div>
+        <script type="module" src="./../js/qrcodeverify.js"></script>
+    </body>
+</html>
