@@ -38,27 +38,6 @@ body {
 	text-align: center;
 }
 
-/* nav bar  */
-.home-header {
-	background-color: var(--main-navbar-background);
-	color: var(--white-color);
-	height: auto;
-}
-.home-header ul {
-	margin: 0;
-	padding: 0;
-	list-style-type: none;
-}
-.home-header ul li {
-	margin: 0.1rem;
-	padding: 1rem;
-	display: inline-block;
-	cursor: pointer;
-}
-.home-header ul > *:hover {
-	background-color: var(--main-nav-item-background);
-	color: var(--main-nav-item-font);
-}
 /* Ammount status part  */
 .main-container {
 	margin: 3px 2px;
