@@ -8,8 +8,15 @@ const jwtToken = localStorage.getItem("jwtToken")
 const eventName = document.querySelector(`.event-name input[type="text"]`);
 const addMemberForm = document.getElementById("add-member-form");
 const errorMessage = document.getElementById("errorMessage");
+let flag = false;
 
 function toggleModal() {
+	if (flag) {
+		addMemberForm.reset();
+		flag = false;
+	} else {
+		flag = true;
+	}
 	modal.classList.toggle("show-modal");
 }
 function windowOnClick(event) {
