@@ -45,12 +45,20 @@
       <span class="close-button" title="Close">&times;</span>
       <h3 class="modal-title">Add a new member</h3>
       <hr />
-      <div class="friends-list">
-      </div>
+      <form class="form-container" id="add-member-form">
+        <div class="form-group">
+            <label for="email">Enter Email: </label>
+            <input type="email" class="form-control" id="email" placeholder="Email id"/>
+            <div class="error-message hide error-text" id="errorMessage">
+                <span class="error-text">Please enter a valid email id</span>
+            </div>
+        </div>
+        <input type="submit" value="Add Member" />
+      </form>
     </div>
   </div>
   <script type="module" src="../js/event-details.js"></script>
-  <script>
+  <!-- <script>
     const friendsList = document.querySelector('.friends-list');
 
     function initializeFriendsList(){
@@ -108,6 +116,6 @@
     }
   }
     initializeFriendsList();
-  </script>
+  </script> -->
 </body>
 </html>
