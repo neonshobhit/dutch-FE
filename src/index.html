@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Home | Split Your Bills</title>
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+            rel="stylesheet"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="./css/index.css" />   
+        <link rel="stylesheet" href="./css/UI/modal.css" /> 
+        <link rel="stylesheet" href="./css/UI/navbar.css" />
+    </head>
+    <body>
+        <header class="home-header">
+            <nav>
+                <ul>
+                    <li>Home</li>
+                    <li>Simplify</li>
+                    <li>Login</li>
+                    <li>Signup</li>
+                    <li>Profile</li>
+                </ul>
+            </nav>
+        </header>
+        <main class="main-container">
+            <div>
+                <div class="received-ammount border font-12 text-center border">
+                    <i class="fa fa-arrow-up"></i>
+                    To receive ammount: <span id="toReceive">0</span> ₹
+                </div>
+                <div class="send-ammount border font-12 text-center border">
+                    <i class="fa fa-arrow-down"></i>
+                    To Pay ammount: <span id="toSend">0</span> ₹
+                </div>
+            </div>
+
+            <form>
+                <input
+                    type="search"
+                    placeholder="🔎 Search (Contacts/Events)"
+                    class="border search-input font-14"
+                />
+            </form>
+
+            <div class="events-container-class" id="eventContainerId"></div>
+        </main>
+        <button class="add-new-event-btn border font-14" title="Add New Event" id="add_event_btn">
+            <i class="fa fa-plus"></i>
+        </button>
+
+        <div class="modal">
+            <div class="modal-content">
+                <span class="close-button" title="Close">&times;</span>
+                <h3 class="modal-title">Add New Group</h3>
+                <form action="" id="add_event_form">
+                    <div class="form-group">
+                        <label for="eventName">Name</label>
+                        <input type="text" class="form-control" id="eventName" placeholder="Name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="eventImage">Image Url</label>
+                        <input type="text" class="form-control" id="eventImage" placeholder="Image Url" />
+                    </div>
+                    <div class="form-group">
+                        <label for="eventIsSimplified">Simplify Debt in the group?</label>
+                        <input type="radio" name="eventIsSimplified" value="yes" />Yes
+                        <input type="radio" name="eventIsSimplified" value="no" />No
+                    </div>
+
+                    <input type="submit" class="btn btn-primary" value = "Add Group" />
+                </form>
+            </div>
+        </div>
+
+        <footer class="footer-container"></footer>
+
+        <script type="module" src="./js/index.js"></script>
+    </body>
+</html>

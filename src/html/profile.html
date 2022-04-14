@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile | Split Your Bills</title>
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+            rel="stylesheet"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="./../css/user/profile.css"> 
+        <link rel="stylesheet" href="./../css/UI/navbar.css">
+        <link rel="stylesheet" href="./../css/UI/modal.css">
+</head>
+<body>
+    <header class="home-header">
+        <nav>
+            <ul>
+                <li>Home</li>
+                <li>Simplify</li>
+                <li>Login</li>
+                <li>Signup</li>
+                <li>Profile</li>
+            </ul>
+        </nav>
+    </header>
+    <main class="profile-main card">
+        <img src="" alt="user profile" id="profile-image" />
+        <h1 id="profile-name"></h1>
+        <p id="profile-email"></p>
+        <p>Total Friends: <span id="profile-friends-count">0  </span>
+            <i class="fa-solid fa fa-user-plus add-friend-icon" title="Add New Friend"></i>
+        </p>
+        <div class="amount-topay-toreceive-status">
+            <div class="amount-topay">
+                <h3>Amount to pay</h3>
+                <p id="amount-topay">0</p>
+            </div>
+            <div class="amount-toreceive">
+                <h3>Amount to receive</h3>
+                <p id="amount-toreceive"></p>
+            </div>
+        </div>
+    </main>
+    <div class="modal">
+        <div class="modal-content">
+          <span class="close-button" title="Close">&times;</span>
+          <h3 class="modal-title">Add a new friend</h3>
+          <hr />
+            <form class="form-container" id="add-friend-form">
+                <div class="form-group">
+                    <label for="email">Enter Email: </label>
+                    <input type="email" class="form-control" id="email" placeholder="Email id"/>
+                    <div class="error-message hide error-text" id="errorMessage">
+                        <span class="error-text">Please enter a valid email id</span>
+                    </div>
+                </div>
+                <input type="submit" value="Add Friend" />
+            </form>
+        </div>
+      </div>
+    <script type="module" src="./../js/profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+.card {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	max-width: 400px;
+	margin: auto;
+	text-align: center;
+	padding: 20px;
+	margin-top: 50px;
+}
+.card img {
+	width: 50%;
+	border-radius: 50%;
+}
+#profile-name,
+#profile-email {
+	text-align: center;
+	margin-top: 20px;
+}
+
+#profile-name h1 {
+	font-size: 1.5em;
+	font-weight: bold;
+	color: #333;
+}
+
+.amount-topay-toreceive-status {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 20px;
+}
+
+.add-friend-icon {
+	margin-left: 10px;
+	font-size: 1.2rem !important;
+	cursor: pointer;
+}
+
+.form-container {
+	width: 50%;
+	margin: 12% auto;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #f2f2f2;
+}
+.form-container input {
+	width: 97%;
+	padding: 10px;
+	margin: 5px 0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+.form-container input[type="submit"] {
+	width: 100%;
+	padding: 10px;
+	margin: 5px 0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #4caf50;
+	color: white;
+}
+
+.form-container input[type="submit"]:hover {
+	background-color: #45a049;
+}
+.hide {
+	display: none;
+}
+.show {
+	display: block;
+}
+.input-border-error {
+	border: 2px solid red !important;
+}
+.error-text {
+	color: red;
+	font-size: 15px;
+	text-align: center;
+}

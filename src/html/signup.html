@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Singup/Login</title>
+        <link rel="stylesheet" href="./../css/signup.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div id="email-container">
+                <form class="form-container" id="addUserForm">
+                    <div>
+                        <h1 class="text-center">Signup / Login</h1>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Enter Your Email: </label>
+                        <input type="email" class="form-control" id="email" placeholder="Email id"/>
+                        <div class="error-message hide" id="errorMessage">
+                            <span class="error-text">Please enter a valid email id</span>
+                        </div>
+                    </div>
+
+                    <input type ="submit" value="Submit" />
+                </form> 
+            </div>
+            <div id="otp-confirmation-container">
+                <form class="form-container" id="otpConfirmationForm">
+                    <div>
+                        <h1 class="text-center">We Sent you a code on your email.</h1>
+                    </div>
+                    <div>
+                        <h4 class="text-center">Edit your mail :<span id="editmail" class="edit-email-text"></span></h4>
+                    </div>
+                    <div class="form-group">
+                        <label for="otp">Enter Confirmation Otp: </label>
+                        <input type="text" class="form-control" id="otp" placeholder="Enter Confirmation Code"/>
+                        <div class="error-message hide" id="otpErrorMessage">
+                            <span class="error-text">Otp Doesn't match. please try again.</span>
+                        </div>
+                    </div>
+
+                    <input type ="submit" value="Confirm" />
+                </form> 
+            </div>
+        </div>
+        <script type="module" src="./../js/signup.js"></script>
+    </body>
+</html>

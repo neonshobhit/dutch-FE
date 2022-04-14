@@ -4,6 +4,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://kit.fontawesome.com/98876321d4.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../css/event-details.css">
+  <link rel="stylesheet" href="../css/UI/modal.css">
 </head>
 <body>
   <section class="msger">
@@ -24,11 +25,11 @@
         </div>
         
         <div class="event-add-members">
-          <span>Members</span>
-          <i class="fa fa-plus" onclick="addUser()"></i>
-          <i class="fa fa-link" onclick="copyInviteLink()"></i>
+          <i class="fa fa-plus" onclick="addUser()" title="add a new member"></i>
+          <i class="fa fa-link" onclick="copyInviteLink()" title="copy invite link"></i>
+          <i class="fa fa-file" onclick="addExpenses()" title="Add Expenses"></i>
         </div>
-        
+        <span>Members</span>
         <div class="event-members-list">
         </div>
 
@@ -39,6 +40,82 @@
       </div>
     </main>
   </section>
-  <script src="../js/event-details.js"></script>
+  <div class="modal">
+    <div class="modal-content">
+      <span class="close-button" title="Close">&times;</span>
+      <h3 class="modal-title">Add a new member</h3>
+      <hr />
+      <form class="form-container" id="add-member-form">
+        <div class="form-group">
+            <label for="email">Enter Email: </label>
+            <input type="email" class="form-control" id="email" placeholder="Email id"/>
+            <div class="error-message hide error-text" id="errorMessage">
+                <span class="error-text">Please enter a valid email id</span>
+            </div>
+        </div>
+        <input type="submit" value="Add Member" />
+      </form>
+    </div>
+  </div>
+  <script type="module" src="../js/event-details.js"></script>
+  <!-- <script>
+    const friendsList = document.querySelector('.friends-list');
+
+    function initializeFriendsList(){
+
+      const dummyFriends = [
+        {
+          name: 'John Doe',
+          id: '1',
+          img: 'https://randomuser.me/api/portraits/',
+          email: "john@gmail.com",
+        },
+        {
+          name: 'Mone Doe',
+          id: '2',
+          img: 'https://randomuser.me/api/portraits/',
+          email: "Mone@gmail.com",
+        },
+        {
+          name: 'Mone Doe',
+          id: '3',
+          img: 'https://randomuser.me/api/portraits/',
+          email: "Mone@gmail.com",
+        },
+        {
+          name: 'Mone Doe',
+          id: '4',
+          img: 'https://randomuser.me/api/portraits/',
+          email: "Mone@gmail.com",
+        },
+        {
+          name: 'Mone Doe',
+          id: '5',
+          img: 'https://randomuser.me/api/portraits/',
+          email: "Mone@gmail.com",
+        },
+      ];
+
+      for(let i = 0; i < dummyFriends.length; i++){
+        const friend = document.createElement('div');
+        friend.classList.add('friend');
+        friend.innerHTML = `
+          <div class="friend-image">
+            <img src="${dummyFriends[i].img}/men/75.jpg" alt=""/>
+          </div>
+          <div class="friend-info">
+            <div class="friend-name">
+              ${dummyFriends[i].name}
+            </div>
+            <div class="friend-email">
+              ${dummyFriends[i].email}
+            </div>
+          </div>
+        `;
+        friendsList.appendChild(friend);
+    }
+  }
+    initializeFriendsList();
+  </script> -->
 </body>
 </html>

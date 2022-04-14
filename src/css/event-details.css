@@ -1,99 +1,191 @@
 :root {
-  --border: 2px solid #ddd;
-  --left-msg-bg: #ececec;
-  --right-msg-bg: #579ffb;
+	--border: 2px solid #ddd;
+	--left-msg-bg: #ececec;
+	--right-msg-bg: #579ffb;
 }
 body {
-  margin: 0;
-  display: flex;
-  height: 100vh;
-  justify-content: center;
+	margin: 0;
+	display: flex;
+	height: 100vh;
+	justify-content: center;
+}
+i {
+	cursor: pointer;
 }
 .msger {
-  display: flex;
-  width: 100%;
-  flex-flow: column wrap;
-  margin: 15px 10px;
-  max-width: 867px;
-  border: var(--border);
-  border-radius: 5px;
-  height: calc(100% - 40px);
-  justify-content: center;
+	display: flex;
+	width: 100%;
+	flex-flow: column wrap;
+	margin: 15px 10px;
+	max-width: 867px;
+	border: var(--border);
+	border-radius: 5px;
+	height: calc(100% - 40px);
+	justify-content: center;
 }
 .msger-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  background: #eee;
-  border-bottom: var(--border);
-  color: #666;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+	background: #eee;
+	border-bottom: var(--border);
+	color: #666;
 }
 
 .event-details {
-  display: flex;
-  max-width: 578px;
-  overflow-y: scroll;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  background-color: #579ffb;
-}
-
-.msger-chat{
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
+	display: flex;
+	max-width: 578px;
+	overflow-y: scroll;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	background-color: #579ffb;
 }
 
 .msger-chat {
-  background-color: #fcfcfe;
-  padding-bottom: 2px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	overflow-y: scroll;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+}
+
+.msger-chat {
+	background-color: #fcfcfe;
+	padding-bottom: 2px;
 }
 
 .event-details::-webkit-scrollbar {
-  width: 3px;
+	width: 3px;
 }
 .event-details::-webkit-scrollbar-track {
-  background: #ddd;
+	background: #ddd;
 }
 .event-details::-webkit-scrollbar-thumb {
-  background: #bdbdbd;
+	background: #bdbdbd;
 }
 
 .event-name {
-  margin: 10px;
-  width: max-content;
+	margin: 10px;
+	width: max-content;
 }
 .event-name-text {
-  margin-right: 10px;
+	margin-right: 10px;
 }
 
 .event-add-members {
-  width: max-content;
-  margin: 0 0 10px 10px;
+	width: max-content;
+	margin: 0 0 10px 10px;
 }
 .event-add-members * {
-  margin-right: 10px;
+	margin-right: 10px;
+}
+.event-add-members i {
+	font-size: 1.5rem;
 }
 
 .event-member-options {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-right: 20px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-right: 20px;
 }
 .event-member {
-  margin: 10px;
-  align-items: center;
-  display: inline-flex;
+	margin: 10px;
+	align-items: center;
+	display: inline-flex;
 }
 .event-member-img {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  margin-right: 10px;
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	margin-right: 10px;
+}
+
+/* Friends */
+.friends-list {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	max-height: 400px;
+	overflow-y: scroll;
+}
+.friends-list .friend {
+	display: flex;
+	gap: 15px;
+	border: 1px solid #ccc;
+	padding: 10px;
+	margin: 10px;
+	border-radius: 10px;
+}
+.friend:hover {
+	background-color: #f2f2f2;
+}
+.friends-list .friend .friend-info .friend-name {
+	font-size: 1rem;
+	text-align: center;
+	margin-top: 25px;
+}
+
+.friends-list .friend .friend-image {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	margin-top: 10px;
+}
+
+.friends-list .friend .friend-image img {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+}
+.friends-list .friend .friend-info .friend-email {
+	font-size: 1rem;
+	text-align: center;
+	margin-top: 10px;
+}
+
+/* Modal Add Member Form */
+.form-container {
+	width: 50%;
+	margin: 12% auto;
+	padding: 20px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #f2f2f2;
+}
+.form-container input {
+	width: 97%;
+	padding: 10px;
+	margin: 5px 0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+}
+.form-container input[type="submit"] {
+	width: 100%;
+	padding: 10px;
+	margin: 5px 0;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	background-color: #4caf50;
+	color: white;
+}
+.form-container input[type="submit"]:hover {
+	background-color: #45a049;
+}
+.hide {
+	display: none;
+}
+.show {
+	display: block;
+}
+.input-border-error {
+	border: 2px solid red !important;
+}
+.error-text {
+	color: red;
+	font-size: 15px;
+	text-align: center;
 }
