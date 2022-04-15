@@ -158,3 +158,15 @@ function initialize() {
 }
 
 initialize();
+const expandTile = (ind) => {
+  let elRef = document.getElementsByClassName('balances')[0].children[ind].children[0].children[1]
+  const isExpanded = elRef.className === 'fas fa-arrow-up';
+  const expandTile = document.getElementsByClassName('balances')[0].children[ind]
+  if (isExpanded) {
+    expandTile.removeChild(expandTile.lastElementChild)
+    elRef.className = 'fas fa-arrow-down';
+  } else {
+    elRef.className = 'fas fa-arrow-up';
+    expandTile.insertAdjacentHTML("beforeend", generateMember())
+  }
+}
