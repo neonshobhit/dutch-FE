@@ -62,6 +62,7 @@ const fetchEvent = async (eventId) => {
 		}),
 	});
 	data = await data.json();
+  console.log(data)
 	if (data && data.statusCode === 200 && data.data) {
 		showMembers(data.data.members);
 	}

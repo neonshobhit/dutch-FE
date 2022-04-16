@@ -114,6 +114,7 @@ addUserForm.addEventListener("submit", async function (e) {
 			showOtpConfirmationContainer();
 			hideEmailContainer();
 			localStorage.setItem("userEmail", emailInputValue);
+      localStorage.setItem("userId", result.id); // todo: don't store Ids
 			fillEditEmailValue(emailInputValue);
 			otpConfirmationPage = true;
 			emailValue = emailInputValue;
