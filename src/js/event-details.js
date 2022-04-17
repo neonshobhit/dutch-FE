@@ -9,7 +9,7 @@ const eventName = document.querySelector(`.event-name input[type="text"]`);
 const addMemberForm = document.getElementById("add-member-form");
 const errorMessage = document.getElementById("errorMessage");
 let flag = false;
-
+let members;
 function toggleModal() {
 	if (flag) {
 		addMemberForm.reset();
@@ -82,19 +82,19 @@ const getEventIdFromParams = () => {
 };
 
 const getEvent = async (eventId) => {
-	let data = await fetch(`${properties.LOCAL}/events/display`, {
-		method: "POST",
+	let data = await fetch(`${properties.LOCAL}/events/display/${getEventIdFromParams()}`, {
+		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
+      Authorization: `Bearer ${jwtToken}`,
 		},
-		body: JSON.stringify({
-			eventId,
-		}),
 	});
 	data = await data.json();
 	if (data && data.statusCode === 200 && data.data) {
 		eventName.value = data.data.name;
 		displayMembers(data.data.members);
+    members = data.data.members
+    console.log(members)
 	}
 };
 const addNewMemberInList = async (addMemberData) => {
@@ -102,6 +102,7 @@ const addNewMemberInList = async (addMemberData) => {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
+      Authorization: `Bearer ${jwtToken}`,
 		},
 		body: JSON.stringify(addMemberData),
 	});
@@ -155,10 +156,23 @@ function initialize() {
 	}
 	let eventId = getEventIdFromParams();
 	getEvent(eventId);
+  getDues(eventId);
 }
 
+const getDues = async (eventId) => {
+  console.log(eventId)
+  let data = await fetch(`${properties.LOCAL}/events/getDues/${eventId}`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		// body: JSON.stringify(addMemberData),
+	});
+	data = await data.json();
+  console.log(data.graph)
+}
 initialize();
-const expandTile = (ind) => {
+const expandTileToggle = (ind) => {
   let elRef = document.getElementsByClassName('balances')[0].children[ind].children[0].children[1]
   const isExpanded = elRef.className === 'fas fa-arrow-up';
   const expandTile = document.getElementsByClassName('balances')[0].children[ind]
@@ -167,6 +181,9 @@ const expandTile = (ind) => {
     elRef.className = 'fas fa-arrow-down';
   } else {
     elRef.className = 'fas fa-arrow-up';
-    expandTile.insertAdjacentHTML("beforeend", generateMember())
+    expandTile.insertAdjacentHTML("beforeend", generateMember(members[ind-1]))
   }
 }
+
+window.expandTileToggle = expandTileToggle
+// document.getElementsByClassName('balance-expansion-tile')

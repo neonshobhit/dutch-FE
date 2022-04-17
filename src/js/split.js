@@ -1,11 +1,13 @@
 import { properties } from "./../properties.js";
 let sum = 0,
 	share = [];
+let members = [], event;
 const tableRef = document.getElementsByClassName("split-details-table")[0];
 const jwtToken = localStorage.getItem("jwtToken")
 	? localStorage.getItem("jwtToken")
 	: "";
 
+const queryParams = Object.fromEntries(new URLSearchParams(location.search));
 const generateSplitDetailsTable = (member, index) => {
 	const html = `
   <tr>
@@ -40,31 +42,75 @@ const updateValue = (index) => {
 	submitAmount.innerText = sum;
 };
 
-const split = () => {
+const split = async () => {
+  let splitIn = []
+  let paidBy = []
 	const checked = document.querySelectorAll(
 		`.split-details-table input[name="split-details-paid-by"]:checked`,
 	);
 	checked.forEach((el, ind, array) => {
 		if (el.checked) {
 			console.log(el.value);
+      console.log(members[ind]);
+      splitIn.push({id: members[ind].userId})
 		}
 	});
-};
 
-const fetchEvent = async (eventId) => {
-	let data = await fetch(`${properties.LOCAL}/events/display`, {
+  const amount = document.getElementsByClassName('split-details-amount')
+  console.log(amount)
+  for (let i=0; i<amount.length; ++i) {
+    console.log(amount[i].value)
+    let val = +amount[i].value
+    if (!isNaN(val) && val !== 0) {
+      paidBy.push({amount: val, id: members[i].userId})
+    }
+  }
+  console.log(splitIn)
+  console.log(paidBy)
+  if (splitIn.length === 0 || paidBy.length === 0) {
+    return alert('Make sure to check atleast one split in checkboxes and amount must not be 0')
+  }
+  let reqBody = {
+    share: {
+      splitIn,
+      paidBy
+    },
+    event: {
+      id: queryParams.eventId,
+      name: event.name
+    }
+  }
+  console.log(reqBody)
+
+  let data = await fetch(`${properties.LOCAL}/records/transaction`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
+      Authorization: `Bearer ${jwtToken}`,
+
 		},
-		body: JSON.stringify({
-			eventId,
-		}),
+    body: JSON.stringify(reqBody),
 	});
 	data = await data.json();
   console.log(data)
+
+};
+
+const fetchEvent = async (eventId) => {
+	let data = await fetch(`${properties.LOCAL}/events/display/${queryParams.eventId.replace('event_', '')}`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+      Authorization: `Bearer ${jwtToken}`,
+
+		},
+	});
+	data = await data.json();
+  console.log(data)
+  event = data.data
 	if (data && data.statusCode === 200 && data.data) {
 		showMembers(data.data.members);
+    members = data.data.members
 	}
 };
 

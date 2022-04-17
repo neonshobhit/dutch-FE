@@ -36,8 +36,25 @@ const getRecords = async () => {
       msgChats[0].insertAdjacentHTML('beforeend', generateMessage(msg.message.message, email === msg.message.sender.email ? 'right': 'left', msg.message.sender.name, msg.timestamp))
     }
   }
+
+  msgChats[0].scroll({top: msgChats[0].scrollHeight, behavior: 'smooth'})
+}
+
+const getEventDetails = async () => {
+  let data = await fetch(`${properties.LOCAL}/events/display/${queryParams.eventId.replace('event_', '')}`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${jwtToken}`,
+		},
+	});
+	data = await data.json();
+  console.log(data)
+  document.getElementById('msger-header-title-name').innerText = data.data.name
+
 }
 getRecords()
+getEventDetails()
 
 const generateBanner = (msg) => {
   const html =
@@ -73,7 +90,7 @@ document.getElementsByClassName("msger-inputarea")[0].addEventListener("submit",
   const msg = document.getElementsByClassName("msger-input")[0].value
   document.getElementsByClassName("msger-input")[0].value = ""
   sendMessage(msg)
-  msgChats[0].insertAdjacentHTML('beforeend', generateMessage(msg))
+  msgChats[0].insertAdjacentHTML('beforeend', generateMessage(msg, 'right', 'User', new Date().getTime()))
   msgChats[0].scrollTop += 500
 })
 
@@ -84,6 +101,10 @@ document.getElementsByClassName('msger-split-btn')[0].addEventListener("click", 
   window.location.href = `./split.html?eventId=${queryParams.eventId.replace('event_', '')}`;
 })
 
+document.getElementsByClassName('msger-header-title')[0].addEventListener("click", (event) => {
+  event.preventDefault()
+  window.location.href = `./event-details.html?eventId=event_${queryParams.eventId.replace('event_', '')}`
+})
 const sendMessage = async (msg) => {
   console.log(msg)
   let data = await fetch(`${properties.LOCAL}/records/add-message`, {
@@ -100,3 +121,4 @@ const sendMessage = async (msg) => {
 
   return data.json();
 }
+
