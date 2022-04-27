@@ -82,19 +82,21 @@ const getEventIdFromParams = () => {
 };
 
 const getEvent = async (eventId) => {
-	let data = await fetch(`${properties.LOCAL}/events/display/${getEventIdFromParams()}`, {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-      Authorization: `Bearer ${jwtToken}`,
+	let data = await fetch(
+		`${properties.LOCAL}/events/display/${getEventIdFromParams()}`,
+		{
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${jwtToken}`,
+			},
 		},
-	});
+	);
 	data = await data.json();
 	if (data && data.statusCode === 200 && data.data) {
 		eventName.value = data.data.name;
 		displayMembers(data.data.members);
-    members = data.data.members
-    console.log(members)
+		members = data.data.members;
 	}
 };
 const addNewMemberInList = async (addMemberData) => {
@@ -102,7 +104,7 @@ const addNewMemberInList = async (addMemberData) => {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
-      Authorization: `Bearer ${jwtToken}`,
+			Authorization: `Bearer ${jwtToken}`,
 		},
 		body: JSON.stringify(addMemberData),
 	});
@@ -156,12 +158,12 @@ function initialize() {
 	}
 	let eventId = getEventIdFromParams();
 	getEvent(eventId);
-  getDues(eventId);
+	getDues(eventId);
 }
 
 const getDues = async (eventId) => {
-  console.log(eventId)
-  let data = await fetch(`${properties.LOCAL}/events/getDues/${eventId}`, {
+	console.log(eventId);
+	let data = await fetch(`${properties.LOCAL}/events/getDues/${eventId}`, {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -169,21 +171,27 @@ const getDues = async (eventId) => {
 		// body: JSON.stringify(addMemberData),
 	});
 	data = await data.json();
-  console.log(data.graph)
-}
+	console.log(data.graph);
+};
 initialize();
 const expandTileToggle = (ind) => {
-  let elRef = document.getElementsByClassName('balances')[0].children[ind].children[0].children[1]
-  const isExpanded = elRef.className === 'fas fa-arrow-up';
-  const expandTile = document.getElementsByClassName('balances')[0].children[ind]
-  if (isExpanded) {
-    expandTile.removeChild(expandTile.lastElementChild)
-    elRef.className = 'fas fa-arrow-down';
-  } else {
-    elRef.className = 'fas fa-arrow-up';
-    expandTile.insertAdjacentHTML("beforeend", generateMember(members[ind-1]))
-  }
-}
+	let elRef =
+		document.getElementsByClassName("balances")[0].children[ind].children[0]
+			.children[1];
+	const isExpanded = elRef.className === "fas fa-arrow-up";
+	const expandTile =
+		document.getElementsByClassName("balances")[0].children[ind];
+	if (isExpanded) {
+		expandTile.removeChild(expandTile.lastElementChild);
+		elRef.className = "fas fa-arrow-down";
+	} else {
+		elRef.className = "fas fa-arrow-up";
+		expandTile.insertAdjacentHTML(
+			"beforeend",
+			generateMember(members[ind - 1]),
+		);
+	}
+};
 
-window.expandTileToggle = expandTileToggle
+window.expandTileToggle = expandTileToggle;
 // document.getElementsByClassName('balance-expansion-tile')

@@ -114,15 +114,28 @@ addUserForm.addEventListener("submit", async function (e) {
 			showOtpConfirmationContainer();
 			hideEmailContainer();
 			localStorage.setItem("userEmail", emailInputValue);
-      localStorage.setItem("userId", result.id); // todo: don't store Ids
 			fillEditEmailValue(emailInputValue);
 			otpConfirmationPage = true;
 			emailValue = emailInputValue;
 		} else {
-			errorMessage.classList.remove("hide");
-			errorMessage.classList.add("show");
-			email.classList.add("input-border-error");
-			errorText.innerHTML = `${result.error}`;
+			if (!result.isOtpVerified) {
+				showOtpConfirmationContainer();
+				hideEmailContainer();
+				localStorage.setItem("userEmail", emailInputValue);
+				fillEditEmailValue(emailInputValue);
+				otpConfirmationPage = true;
+				emailValue = emailInputValue;
+			} else if (result.isOtpVerified) {
+				alert(result.error);
+				localStorage.setItem("userEmail", emailInputValue);
+				localStorage.setItem("isOtpVerified", true);
+				window.location.href = "./qrcodeverify.html";
+			} else {
+				errorMessage.classList.remove("hide");
+				errorMessage.classList.add("show");
+				email.classList.add("input-border-error");
+				errorText.innerHTML = `${result.error}`;
+			}
 		}
 	}
 });
