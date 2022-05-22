@@ -126,7 +126,7 @@ async function getEventInformation(event) {
 eventsContainer.addEventListener("click", (e) => {
 	if (e.target.classList.contains("event")) {
 		window.location.href =
-			"./html/event-details.html?eventId=" + e.target.id;
+			"./html/chat.html?eventId=" + e.target.id;
 	}
 });
 

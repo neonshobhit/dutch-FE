@@ -94,6 +94,8 @@ const split = async () => {
 	data = await data.json();
   console.log(data)
 
+  // add message that it has been split now
+
 };
 
 const fetchEvent = async (eventId) => {

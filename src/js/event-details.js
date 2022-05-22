@@ -10,6 +10,9 @@ const addMemberForm = document.getElementById("add-member-form");
 const errorMessage = document.getElementById("errorMessage");
 let flag = false;
 let members;
+let event = undefined;
+let names = {}
+let indexedBalance = {}
 function toggleModal() {
 	if (flag) {
 		addMemberForm.reset();
@@ -59,7 +62,20 @@ const generateMember = (member) => {
       <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuHmklWCsY6sTDgS1Gxv-pZ4aEaCOgtvgOzg&usqp=CAU" alt=""  class="event-member-img"></img>
       <span class="event-member-name">${member.name}</span>
     </span>
-    <i class="fa fa-trash" onclick="removeMember()" title="remove member"></i>
+  </div>
+  `;
+  // <i class="fa fa-trash" onclick="removeMember()" title="remove member"></i>
+
+	return html;
+};
+
+const generateOwedBy = (name, amount) => {
+	const html = `
+  <div class="event-member-options">
+    <span class="event-member">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuHmklWCsY6sTDgS1Gxv-pZ4aEaCOgtvgOzg&usqp=CAU" alt=""  class="event-member-img"></img>
+      <span class="event-member-name">${name} owes ${amount}</span>
+    </span>
   </div>
   `;
 
@@ -74,7 +90,43 @@ const displayMembers = (members) => {
 			.insertAdjacentHTML("beforeend", generateMember(members[i]));
 	}
 };
-
+const displayBalances = (name, amount, index) => {
+  let html = `
+  <div class="expanded-tile">
+    <div class="balance-expansion-tile" onclick="expandTileToggle(${index})">
+      <span class="expansion-tile-text">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRuHmklWCsY6sTDgS1Gxv-pZ4aEaCOgtvgOzg&usqp=CAU" alt=""  class="expansion-tile-img"></img>
+        ${name} gets back ${amount}
+      </span>
+      <i class="fas fa-arrow-down"></i>
+    </div>
+  </div>
+  `
+  return html;
+}
+const updateName = (eventName) => {
+  console.log(document.getElementsByClassName("msger-header-title")[0].children)
+  document.getElementsByClassName("msger-header-title")[0].children[0].innerHTML = " " + eventName
+}
+const updateBalance = (graph, members) => {
+  for (let i in members) {
+    names[members[i].userId] = members[i].name
+  }
+  let index = 0;
+  let html = ''
+  for (let i in graph) {
+    let sum = 0;
+    // let innerhtml = ''
+    for (let j in graph[i]) {
+      sum += graph[i][j];
+      // innerhtml += generateOwedBy(names[graph[j]]);
+    }
+    html += displayBalances(names[i], sum, ++index)
+    indexedBalance[index] = i
+  }
+  document.getElementsByClassName("balances")[0].insertAdjacentHTML('beforeend', html)
+  console.log(html, event)
+}
 const getEventIdFromParams = () => {
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
@@ -95,7 +147,10 @@ const getEvent = async (eventId) => {
 	data = await data.json();
 	if (data && data.statusCode === 200 && data.data) {
 		eventName.value = data.data.name;
+    event = data.data
 		displayMembers(data.data.members);
+    updateName(data.data.name);
+    updateBalance(data.data.graph, data.data.members);
 		members = data.data.members;
 	}
 };
@@ -182,14 +237,18 @@ const expandTileToggle = (ind) => {
 	const expandTile =
 		document.getElementsByClassName("balances")[0].children[ind];
 	if (isExpanded) {
-		expandTile.removeChild(expandTile.lastElementChild);
+    for (let i in event.graph[indexedBalance[ind]]) {
+      expandTile.removeChild(expandTile.lastElementChild);
+    }
 		elRef.className = "fas fa-arrow-down";
 	} else {
 		elRef.className = "fas fa-arrow-up";
-		expandTile.insertAdjacentHTML(
-			"beforeend",
-			generateMember(members[ind - 1]),
-		);
+    for (let i in event.graph[indexedBalance[ind]]) {
+      expandTile.insertAdjacentHTML(
+        "beforeend",
+        generateOwedBy(names[i], event.graph[indexedBalance[ind]][i]),
+      );
+    }
 	}
 };
 
