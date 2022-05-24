@@ -18,6 +18,7 @@ const generateSplitDetailsTable = (member, index) => {
   `;
 	return html;
 };
+let names = {}
 const showMembers = (members) => {
 	for (let i = 0; i < members.length; ++i) {
 		let newRow = tableRef.insertRow(tableRef.rows.length);
@@ -48,6 +49,7 @@ const split = async () => {
 	const checked = document.querySelectorAll(
 		`.split-details-table input[name="split-details-paid-by"]:checked`,
 	);
+  console.log(members)
 	checked.forEach((el, ind, array) => {
 		if (el.checked) {
 			console.log(el.value);
@@ -58,10 +60,12 @@ const split = async () => {
 
   const amount = document.getElementsByClassName('split-details-amount')
   console.log(amount)
+  let sum = 0
   for (let i=0; i<amount.length; ++i) {
     console.log(amount[i].value)
     let val = +amount[i].value
     if (!isNaN(val) && val !== 0) {
+      sum += val
       paidBy.push({amount: val, id: members[i].userId})
     }
   }
@@ -94,8 +98,21 @@ const split = async () => {
 	data = await data.json();
   console.log(data)
 
-  // add message that it has been split now
+  const objectToName = (objects) => {
+    let str = ''
+    for (let i of objects) {
+      console.log(i)
+      str += (names[i.id] + ', ')
+    }
+    console.log(str)
+    return str
+  }
+  const msg = `Made a trasaction of INR ${sum}, which is paid by ${objectToName(paidBy)}and will be split in ${objectToName(splitIn)}Thanks.`
+  sendMessage(msg)
 
+  alert('successfuly made a split!')
+
+  window.location.href = `./chat.html?eventId=event_${queryParams.eventId.replace('event_', '')}`
 };
 
 const fetchEvent = async (eventId) => {
@@ -110,9 +127,13 @@ const fetchEvent = async (eventId) => {
 	data = await data.json();
   console.log(data)
   event = data.data
+  // let members = data.data.members
+  members = data?.data?.members
+  for (let i in members) {
+    names[members[i].userId] = members[i].name
+  }
 	if (data && data.statusCode === 200 && data.data) {
 		showMembers(data.data.members);
-    members = data.data.members
 	}
 };
 
@@ -139,3 +160,20 @@ window.showMembers = showMembers;
 window.updateValue = updateValue;
 window.split = split;
 initialize();
+
+var sendMessage = async (msg) => {
+  console.log(msg)
+  let data = await fetch(`${properties.LOCAL}/records/add-message`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${jwtToken}`,
+		},
+    body: JSON.stringify({
+      eventId: queryParams.eventId.replace('event_', ''),
+      newMessage: msg || ""
+    })
+	});
+
+  return data.json();
+}
